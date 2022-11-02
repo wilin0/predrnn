@@ -1,7 +1,7 @@
 import os
 import torch
 from torch.optim import Adam
-from core.models import predrnn, predrnn_memory_decoupling
+from core.models import predrnn, predrnn_memory_decoupling, predrnn_plus
 
 class Model(object):
     def __init__(self, configs):
@@ -11,6 +11,7 @@ class Model(object):
         networks_map = {
             'predrnn': predrnn.RNN,
             'predrnn_memory_decoupling': predrnn_memory_decoupling.RNN,
+            'predrnn_plus': predrnn_plus.RNN
         }
 
         if configs.model_name in networks_map:

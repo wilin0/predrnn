@@ -6,15 +6,15 @@ from core.layers.SpatioTemporalLSTMCell_plus import SpatioTemporalLSTMCell_plus
 from core.layers.Gradient_Highway_Unit import Gradient_Highway_Unit
 
 
-class RNN_plus(nn.Module):
-    def __init__(self, num_layers, num_hidden, configs, GHU_num):
-        super(RNN_plus, self).__init__()
+class RNN(nn.Module):
+    def __init__(self, num_layers, num_hidden, configs):
+        super(RNN, self).__init__()
 
         self.configs = configs
         self.frame_channel = configs.patch_size * configs.patch_size * configs.img_channel
         self.num_layers = num_layers
         self.num_hidden = num_hidden
-        self.ghu_num = GHU_num
+        self.ghu_num = 1
 
         cell_list = []
 
@@ -27,7 +27,7 @@ class RNN_plus(nn.Module):
                 SpatioTemporalLSTMCell_plus(in_channel, num_hidden[i], width, configs.filter_size,
                                        configs.stride, configs.layer_norm)
             )
-        ghu = Gradient_Highway_Unit(num_hidden[GHU_num - 1], num_hidden[GHU_num - 1], width, configs, configs.filter_size, configs.stride)
+        ghu = Gradient_Highway_Unit(num_hidden[self.ghu_num - 1], num_hidden[self.ghu_num - 1], width, configs, configs.filter_size, configs.stride)
         self.cell_list = nn.ModuleList(cell_list)
         self.ghu = ghu
         self.conv_last = nn.Conv2d(num_hidden[num_layers - 1], self.frame_channel,

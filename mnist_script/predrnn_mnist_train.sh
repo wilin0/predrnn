@@ -8,7 +8,7 @@ python -u run.py \
     --valid_data_paths D:/download/OneDrive-2022-10-30/moving-mnist-valid.npz \
     --save_dir checkpoints/mnist_predrnn \
     --gen_frm_dir results/mnist_predrnn \
-    --model_name predrnn \
+    --model_name predrnn_plus \
     --pretrained_model checkpoints/mnist_predrnn \
     --reverse_input 1 \
     --img_width 64 \
